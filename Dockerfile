@@ -1,3 +1,4 @@
+
 # solcjs --bin --abi --include-path node_modules/ --base-path . -o . SimpleStorage.sol
 
 FROM node:18
@@ -17,8 +18,9 @@ RUN apt-get update && apt-get install -y expect jq git && \
     rm -rf /var/lib/apt/lists/* && apt-get clean \ 
     chmod +x shell/auto-hardhat.exp && expect shell/auto-hardhat.exp && \
     sh shell/apply_prettier.sh && rm -rf shell && \
-    mv *.sol contracts && rm contracts/Lock.sol
+    rm contracts/Lock.sol
 
 CMD ["bash"]
+
 
  
