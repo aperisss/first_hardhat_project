@@ -6,7 +6,6 @@ async function main() {
     console.log("deploying contract...")
     const SimpleStorage = await SimpleStorageFactory.deploy()
     await SimpleStorage.getDeployedCode()
-    console.log(SimpleStorage.target)
 }
 
 main()
