@@ -1,5 +1,6 @@
 
 # solcjs --bin --abi --include-path node_modules/ --base-path . -o . SimpleStorage.sol
+# git push --set-upstream origin container-setup
 
 FROM node:18
 
@@ -20,8 +21,7 @@ RUN apt-get update && apt-get install -y expect jq git && \
     git config --global user.name "aperisss" && \
     git config --global user.email "peris.adam@outlook.fr" && \
     git stash --include-untracked && git checkout main && \
-    git fetch origin && git reset --hard origin/main && \
-    git config advice.addIgnoredFile false
+    git fetch origin && git reset --hard origin/main 
 
 CMD ["bash"]
 
