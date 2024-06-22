@@ -1,3 +1,4 @@
+
 # solcjs --bin --abi --include-path node_modules/ --base-path . -o . SimpleStorage.sol
 
 FROM node:18
@@ -7,8 +8,6 @@ WORKDIR /app
 COPY . .
 
 RUN apt-get update && apt-get install -y expect jq git && \
-    git config --global user.name "aperisss" && \
-    git config --global user.email "peris.adam@outlook.fr" && \
     npm init --yes && npm install --save-dev hardhat && \
     npm install solc && npm install -g solc@0.8.7-fixed && \
     npm install --save ethers@6.1.0 && \
@@ -17,8 +16,13 @@ RUN apt-get update && apt-get install -y expect jq git && \
     rm -rf /var/lib/apt/lists/* && apt-get clean \ 
     chmod +x shell/auto-hardhat.exp && expect shell/auto-hardhat.exp && \
     sh shell/apply_prettier.sh && rm -rf shell && \
-    mv *.sol contracts && rm contracts/Lock.sol
+    rm contracts/Lock.sol && \
+    git config --global user.name "aperisss" && \
+    git config --global user.email "peris.adam@outlook.fr" && \
+    git stash --include-untracked && git checkout main && \
+    git fetch origin && git reset --hard origin/main && \
 
 CMD ["bash"]
+
 
  
