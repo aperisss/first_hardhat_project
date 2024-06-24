@@ -1,5 +1,6 @@
 require("@nomicfoundation/hardhat-toolbox")
 require("dotenv").config()
+require("./tasks/block-number")
 
 const SEPOLIA_RPC_URL = process.env.SEPOLIA_RPC_URL
 const PRIVATE_KEY = process.env.PRIVATE_KEY
@@ -14,6 +15,10 @@ module.exports = {
             accounts: [PRIVATE_KEY],
             chainId: 11155111,
         },
+        localhost: {
+            url: "http://0.0.0.0:8545/",
+            chainId: 31337,
+        }
     },
     solidity: "0.8.7",
     etherscan: {
