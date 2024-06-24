@@ -13,7 +13,8 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "hardhat": "^2.22.5",
-    "hardhat-gas-reporter": "^2.2.0"
+    "hardhat-gas-reporter": "^1.0.8",
+    "solidity-coverage": "^0.8.12"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
