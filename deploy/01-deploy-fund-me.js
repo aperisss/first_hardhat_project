@@ -1,5 +1,13 @@
-function deployFunc() {
-    console.log("hi!")
-}
+module.exports = async ({getNameAccounts, deployments}) => {
+    const {deploy, log } = deployments
+    const { deployer } = await getNameAccounts()
+    const chainId = network.config.chainId
 
-module.exports.default = deployFunc
+    
+
+    const fundMe = await deploy("FundMe", {
+        from: deployer,
+        args: [],
+        log: true,
+    })
+}

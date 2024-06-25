@@ -23,9 +23,6 @@ module.exports = {
         }
     },
     solidity: "0.8.8",
-    etherscan: {
-        apiKey: ETHERSCAN_API_KEY,
-    },
     gasReporter: {
         enabled: false,
         outputFile: "gas-report.txt",
@@ -33,5 +30,16 @@ module.exports = {
         currency: "USD",
         coinmarketcap: COINMARKETCAP_API_KEY,
         token: "MATIC",
-    }, 
+    },
+    etherscan: {
+        apiKey: ETHERSCAN_API_KEY,
+    },
+    namedAccounts: {
+        deployer: {
+            default: 0,
+        },
+        user: {
+            default: 1,
+        },
+    },
 }
