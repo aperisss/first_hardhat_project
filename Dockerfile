@@ -12,6 +12,9 @@ RUN apt-get update && apt-get install -y expect jq git && \
     npm install --save-dev @nomiclabs/hardhat-etherscan && \
     npm install --save-dev hardhat-gas-reporter@1.0.8 && \
     npm install --save-dev solidity-coverage && \
+    npm install --save-dev solhint && \
+    npm install --save-dev @chainlink/contracts && \
+    npm install --save-dev hardhat-deploy && \
     npm install solc && npm install -g solc@0.8.7-fixed && \
     npm install --save ethers@6.1.0 && \
     npm install dotenv --save && \
@@ -23,7 +26,8 @@ RUN apt-get update && apt-get install -y expect jq git && \
     git config --global user.name "aperisss" && \
     git config --global user.email "peris.adam@outlook.fr" && \
     git stash --include-untracked && git checkout main && \
-    git fetch origin && git reset --hard origin/main
+    git fetch origin && git reset --hard origin/main && \
+    npm install --save-dev @nomiclabs/hardhat-ethers@npm:hardhat-deploy-ethers ethers
 
 CMD ["bash"]
 
