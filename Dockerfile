@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y expect jq git && \
     npm install --save-dev @nomiclabs/hardhat-etherscan && \
     npm install --save-dev hardhat-gas-reporter@1.0.8 && \
     npm install --save-dev solidity-coverage && \
+    npm install --save-dev solhint && \
     npm install solc && npm install -g solc@0.8.7-fixed && \
     npm install --save ethers@6.1.0 && \
     npm install dotenv --save && \
