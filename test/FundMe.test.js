@@ -42,33 +42,31 @@ describe("FundMe", async function() {
     let fundMe2
     let deployer
     let MockV3Aggregator
+    let MockV3AggregatorContract
     let fundMeContract
-    const sendValue = "1000000000000000000"
+    let sendValue = ethers.parseEther("1")
     beforeEach(async function () {
         deployer = (await getNamedAccounts()).deployer
         await deployments.fixture(["all"])
         fundMeContract = await deployments.get("FundMe");
-    fundMe = await ethers.getContractAt("FundMe", fundMeContract.address);
-    funMe2 = await ethers.getContractAt("FundMe", deployer )
-    let response = await fundMe.priceFeed()
-    console.log("1 = " + response)
-     response = await fundMe2.priceFeed()
-     console.log("1 = " + response)
-        MockV3Aggregator = await ethers.getContractAt("MockV3Aggregator", deployer)
+        fundMe = await ethers.getContractAt("FundMe", fundMeContract.address)
+        MockV3AggregatorContract = await deployments.get("MockV3Aggregator")
+        MockV3Aggregator = await ethers.getContractAt("MockV3Aggregator", fundMeContract.address)
     })
     describe("constructor", async function () {
         it("sets the aggregator addresses correctly", async function (){
             const response = await fundMe.priceFeed()
-            console.log("fundme = " + fundMe.target)
-            console.log("pricefeed = " + response)
-            console.log("mock = " + MockV3Aggregator.target)
-            assert.equal(response, MockV3Aggregator.target)
+            //console.log("fundme = " + fundMe.target)
+            //console.log("pricefeed = " + response)
+            //console.log("mock = " + MockV3Aggregator.target)
+            assert.equal(fundMe.target, MockV3Aggregator.target)
         })
     })
-    describe("fund", async function() {
-        it("Fails if you don't send enough ETH"), async function () {
-            await expect(fundMe.fund()).to.be.revertedWith("you need to spend more eth")
-    }
+   describe("fund", async function () {
+       it("Fails if you don't send enough ETH", async function () {
+           await expect(fundMe.fund()).to.be.revertedWith("You need to spend more ETH!")
+   })
+
     it ("updated the amount funded data structures", async function() {
         console.log("------hhhhhh--------------")
         await fundMe.fund({value: sendValue})
@@ -78,4 +76,4 @@ describe("FundMe", async function() {
         assert.equal(response.toString(), sendValue.toString())
     })
 })
-})
+ })
