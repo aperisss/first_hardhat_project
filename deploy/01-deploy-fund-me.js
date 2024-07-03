@@ -1,9 +1,9 @@
 const { network } = require("hardhat")
 const { verify } = require("../utils/verify")
-const {networkConfig, developmentChains} = require("../helper-hardhat-config")
+const { networkConfig, developmentChains } = require("../helper-hardhat-config")
 
-module.exports = async ({getNamedAccounts, deployments}) => {
-    const {deploy, log } = deployments
+module.exports = async ({ getNamedAccounts, deployments }) => {
+    const { deploy, log } = deployments
     const { deployer } = await getNamedAccounts()
     const chainId = network.config.chainId
 
@@ -23,7 +23,10 @@ module.exports = async ({getNamedAccounts, deployments}) => {
         waitConfirmations: network.config.blockConfirmations || 1,
     })
 
-    if (!developmentChains.includes(network.name) && process.env.ETHERSCAN_API_KEY) {
+    if (
+        !developmentChains.includes(network.name) &&
+        process.env.ETHERSCAN_API_KEY
+    ) {
         await verify(fundMe.address, args)
     }
     log("-------------------------")

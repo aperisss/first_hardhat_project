@@ -1,4 +1,4 @@
-const {run} = require("hardhat")
+const { run } = require("hardhat")
 
 const verify = async (contractAddress, args) => {
     console.log("Verifying contract...")
@@ -10,9 +10,8 @@ const verify = async (contractAddress, args) => {
     } catch (e) {
         if (e.message.toLowerCase().includes("already verified")) {
             console.log("Aleready Verified!")
-        } else 
-            console.log(e)
+        } else console.log(e)
     }
 }
 
-module.exports = {verify}
+module.exports = { verify }

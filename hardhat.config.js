@@ -21,10 +21,10 @@ module.exports = {
         localhost: {
             url: "http://0.0.0.0:8545/",
             chainId: 31337,
-        }
+        },
     },
     solidity: {
-        compilers: [{version:"0.8.8"}, {version: "0.8.7"}],
+        compilers: [{ version: "0.8.8" }, { version: "0.8.7" }],
     },
     gasReporter: {
         enabled: false,
