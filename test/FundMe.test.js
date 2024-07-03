@@ -51,15 +51,18 @@ describe("FundMe", async function() {
         fundMeContract = await deployments.get("FundMe");
         fundMe = await ethers.getContractAt("FundMe", fundMeContract.address)
         MockV3AggregatorContract = await deployments.get("MockV3Aggregator")
-        MockV3Aggregator = await ethers.getContractAt("MockV3Aggregator", fundMeContract.address)
+        MockV3Aggregator = await ethers.getContractAt("MockV3Aggregator", MockV3AggregatorContract.address)
+        const response = await fundMe.priceFeed()
+        console.log("fundmeContract = " + fundMeContract.address)
+        console.log("fundme = " + fundMe.target)
+        console.log("mock = " + MockV3Aggregator.target)
+        console.log("pricefeed = " + response)
+        console.log("mockContract = " + MockV3AggregatorContract.address)
     })
     describe("constructor", async function () {
         it("sets the aggregator addresses correctly", async function (){
             const response = await fundMe.priceFeed()
-            //console.log("fundme = " + fundMe.target)
-            //console.log("pricefeed = " + response)
-            //console.log("mock = " + MockV3Aggregator.target)
-            assert.equal(fundMe.target, MockV3Aggregator.target)
+            assert.equal(response, MockV3Aggregator.target)
         })
     })
    describe("fund", async function () {
@@ -77,3 +80,16 @@ describe("FundMe", async function() {
     })
 })
  })
+
+ // test passing 0ms = erreur syntaxique dans le code 
+ // test pendig = erreur aacolade dans les it
+ // utiliser ethers.parseEther("") plutot que ethers.utils.parseEther("")
+ // message derreur dans les expect qui appelent des fonctions de smart contract doivent etre EXACTEMENT les meme
+ // utiliser fundMeContract = await deployments.get("FundMe");
+            //fundMe = await ethers.getContractAt("FundMe", fundMeContract.address)
+// plutot que fundMe = await ethers.getContractAt("FundMe", deployer)
+// ---> mauvaise adresse du contrat qui inclu une incapacite a utiliser les fonctions du contrat
+
+
+// comprendre le dernier cas derreur et pq dans dernier it fundMe.addressToAmountFunded(deployer)
+// marche correctemet alors quon a pas deployer le contrat avec le deployer 
