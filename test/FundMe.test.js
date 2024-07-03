@@ -65,8 +65,8 @@ describe("FundMe", async function () {
             await fundMe.fund({value: sendValue})
         })
         it("Withdraw ETH from a single founder", async function () {
-            const startingFundMeBalance = await ethers.provider.getBalance(fundMe.address)
-            const startingDeployerBalance = await ethers.provider.getBalance(deployer)
+            const startingFundMeBalance = await ethers.provider.getBalance(fundMe.target)
+            // const startingDeployerBalance = await ethers.provider.getBalance(deployer)
             console.log("hhhhhhhhhhhhhhhhhhhhhh")
             //test ethers.provider ou fundme.provider pour getbalance
             const transactionResponse = await fundMe.withdraw()
