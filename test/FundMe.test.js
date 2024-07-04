@@ -71,8 +71,10 @@ describe("FundMe", async function () {
             //test ethers.provider ou fundme.provider pour getbalance
             const transactionResponse = await fundMe.withdraw()
             const transactionReceipt = await transactionResponse.wait(1)
-            const { gasUsed, effectiveGasPrice} = transactionReceipt
-            const gasCost = gasUsed.mul(effectiveGasPrice)
+            const { gasUsed, gasPrice } = transactionReceipt
+            console.log("Type of gasUsed:", typeof gasUsed)
+            console.log("Type of effectiveGasPrice:", typeof gasPrice)
+            const gasCost = gasUsed * gasPrice
             
 
             const endingFundMeBalance = await ethers.provider.getBalance(fundMe.target)
