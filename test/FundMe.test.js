@@ -66,20 +66,22 @@ describe("FundMe", async function () {
         })
         it("Withdraw ETH from a single founder", async function () {
             const startingFundMeBalance = await ethers.provider.getBalance(fundMe.target)
-            // const startingDeployerBalance = await ethers.provider.getBalance(deployer)
+            const startingDeployerBalance = await ethers.provider.getBalance(deployer)
             console.log("hhhhhhhhhhhhhhhhhhhhhh")
             //test ethers.provider ou fundme.provider pour getbalance
             const transactionResponse = await fundMe.withdraw()
             const transactionReceipt = await transactionResponse.wait(1)
+            const { gasUsed, effectiveGasPrice} = transactionReceipt
+            const gasCost = gasUsed.mul(effectiveGasPrice)
             
 
-            const endingFundMeBalance = await fundMe.provider.getBalance(fundMe.address)
-            const endingDeployerBalance = await fundMe.provider.getBalance(deployer)
+            const endingFundMeBalance = await ethers.provider.getBalance(fundMe.target)
+            const endingDeployerBalance = await ethers.provider.getBalance(deployer)
 
 
             assert.equal(endingFundMeBalance, 0)
-            assert.equal(startingFundMeBalance.add(startingDeployerBalance).toString,
-             endingDeployerBalance.add(gasCost).toString)
+            assert.equal((startingFundMeBalance + startingDeployerBalance).toString(),
+             (endingDeployerBalance + gasCost).toString())
 
         })
     })
