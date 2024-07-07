@@ -118,5 +118,52 @@ describe("FundMe", async function () {
             const attackerConnectContract = await fundMe.connect(attacker)
             await expect(attackerConnectContract.withdraw()).to.be.revertedWithCustomError(fundMe, "FundMe__NotOwner")
         })
+        it ("cheaperWithdraw testing", async function(){
+            const accounts = await ethers.getSigners()
+            for (let i = 1; i < 6; i++) {
+                const fundMeConnectedContract = await fundMe.connect(accounts[i])
+                await fundMeConnectedContract.fund({value: sendValue})
+            }
+            const startingFundMeBalance = await ethers.provider.getBalance(fundMe.target)
+            const startingDeployerBalance = await ethers.provider.getBalance(deployer)
+
+            const transactionResponse = await fundMe.cheaperWithdraw()
+            const transactionReceipt = await transactionResponse.wait(1)
+            const { gasUsed, gasPrice } = transactionReceipt
+            const gasCost = gasUsed * gasPrice
+            
+            const endingFundMeBalance = await ethers.provider.getBalance(fundMe.target)
+            const endingDeployerBalance = await ethers.provider.getBalance(deployer)
+
+
+            assert.equal(endingFundMeBalance, 0)
+            assert.equal((startingFundMeBalance + startingDeployerBalance).toString(),
+             (endingDeployerBalance + gasCost).toString())
+
+             await expect(fundMe.s_funders(0)).to.be.reverted
+
+             for (let i = 1; i < 6; i++) {
+                assert.equal(await fundMe.s_addressToAmountFunded(accounts[i].address), 0)
+             }
+        })
+        it("Withdraw ETH from a single founder with cheaperWithdraw", async function () {
+            const startingFundMeBalance = await ethers.provider.getBalance(fundMe.target)
+            const startingDeployerBalance = await ethers.provider.getBalance(deployer)
+            //test ethers.provider ou fundme.provider pour getbalance
+            const transactionResponse = await fundMe.cheaperWithdraw()
+            const transactionReceipt = await transactionResponse.wait(1)
+
+            const { gasUsed, gasPrice } = transactionReceipt
+            const gasCost = gasUsed * gasPrice
+            
+
+            const endingFundMeBalance = await ethers.provider.getBalance(fundMe.target)
+            const endingDeployerBalance = await ethers.provider.getBalance(deployer)
+
+
+            assert.equal(endingFundMeBalance, 0)
+            assert.equal((startingFundMeBalance + startingDeployerBalance).toString(),
+             (endingDeployerBalance + gasCost).toString())
+        })
     })
 })
