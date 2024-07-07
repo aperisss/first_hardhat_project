@@ -27,11 +27,11 @@ module.exports = {
         compilers: [{ version: "0.8.8" }, { version: "0.8.7" }],
     },
     gasReporter: {
-        enabled: false,
+        enabled: true,
         outputFile: "gas-report.txt",
         noColors: true,
         currency: "USD",
-        coinmarketcap: COINMARKETCAP_API_KEY,
+        //coinmarketcap: COINMARKETCAP_API_KEY,
         token: "MATIC",
     },
     etherscan: {
