@@ -1,6 +1,4 @@
-// test passing 0ms = erreur syntaxique dans le code
 // test pendig = erreur aacolade dans les it
-// utiliser ethers.parseEther("") plutot que ethers.utils.parseEther("")
 // message derreur dans les expect qui appelent des fonctions de smart contract doivent etre EXACTEMENT les meme
 // utiliser fundMeContract = await deployments.get("FundMe");
 //fundMe = await ethers.getContractAt("FundMe", fundMeContract.address)
