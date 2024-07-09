@@ -12,8 +12,12 @@
 
 const { deployments, ethers, getNamedAccounts } = require("hardhat")
 const { assert, expect } = require("chai")
+const { developmentChains } = require("../../helper-hardhat-config")
 
-describe("FundMe", async function () {
+
+!developmentChains.includes(network.name)
+    ? describe.skip
+    :describe("FundMe", async function () {
     let fundMe
     let deployer
     let MockV3Aggregator

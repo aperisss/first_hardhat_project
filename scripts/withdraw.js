@@ -1,0 +1,19 @@
+const { ethers, getNamedAccounts } = require("hardhat")
+
+async function main() {
+  const { deployer } = await getNamedAccounts()
+  const fundMeContract = await deployments.get("FundMe")
+   const fundMe = await ethers.getContractAt("FundMe", fundMeContract.address)
+  console.log(`Got contract FundMe at ${fundMe.target}`)
+  console.log("Withdrawing from contract...")
+  const transactionResponse = await fundMe.withdraw()
+  await transactionResponse.wait()
+  console.log("Got it back!")
+}
+
+main()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error)
+    process.exit(1)
+  })
