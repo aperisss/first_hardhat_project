@@ -2,16 +2,18 @@ node_modules
 .env
 
 # Hardhat files
-/cache
-/artifacts
+Web3/cache
+Web3/artifacts
 
 # TypeChain files
-/typechain
-/typechain-types
+Web3/typechain
+Web3/typechain-types
 
 # solidity-coverage files
-/coverage
-/coverage.json
+Web3/coverage
+Web3/coverage.json
 
 # Hardhat Ignition default folder for deployments against a local node
-ignition/deployments/chain-31337
+Web3/ignition/deployments/chain-31337
+
+Web3/gas-report.txt
